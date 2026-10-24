@@ -1,0 +1,279 @@
+---
+/**
+ * index.astro — Homepage
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/Hero.astro';
+import StatsStrip from '@/components/StatsStrip.astro';
+import ServicesGrid from '@/components/ServicesGrid.astro';
+import SolutionsTeaser from '@/components/SolutionsTeaser.astro';
+import ProcessSection from '@/components/ProcessSection.astro';
+import Marquee from '@/components/Marquee.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import CTASection from '@/components/CTASection.astro';
+import { site } from '@/data/site';
+import { whyChooseUs, industries } from '@/data/industries';
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}/favicon.svg`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: site.phoneRaw,
+    contactType: 'customer service',
+    areaServed: ['IN', 'GB', 'US', 'AE'],
+    availableLanguage: 'English',
+  },
+  sameAs: Object.values(site.socials),
+};
+
+const webSiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.url,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${site.url}/blog?q={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  description: site.description,
+  url: site.url,
+  telephone: site.phoneRaw,
+  email: site.email,
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'IN',
+  },
+  priceRange: '₹₹',
+  currenciesAccepted: 'INR',
+  openingHours: 'Mo-Fr 09:00-18:00',
+};
+---
+
+<BaseLayout
+  title="Software Solutions Company in India"
+  description={site.description}
+  jsonLd={[orgJsonLd, webSiteJsonLd, localBusinessJsonLd]}
+>
+  <!-- Hero -->
+  <Hero />
+
+  <!-- Stats -->
+  <StatsStrip />
+
+  <!-- About blurb strip -->
+  <section class="about-strip section-sm" aria-label="About Moggstack">
+    <div class="container">
+      <div class="about-strip-inner" data-reveal>
+        <div class="about-strip-text">
+          <span class="eyebrow">Who we are</span>
+          <h2 style="margin-top: 0.75rem; font-size: var(--text-4xl); max-width: 22ch;">
+            Strategy, design and engineering in <em>one team.</em>
+          </h2>
+        </div>
+        <div class="about-strip-body">
+          <p class="about-definition">
+            <strong>To mog</strong> — to outperform everyone else in the room.
+            That's the standard we build to.
+          </p>
+          <p>
+            We design and build fast, modern websites and mobile apps that help businesses grow.
+            Our team blends strategy, design and engineering to deliver clean, scalable solutions
+            focused on usability, performance and measurable results.
+          </p>
+          <a href="/about" class="btn btn-outline" style="margin-top: 1rem;">
+            About our team
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <ServicesGrid />
+
+  <!-- Solutions teaser -->
+  <SolutionsTeaser />
+
+  <!-- Process -->
+  <ProcessSection />
+
+  <!-- Why choose us -->
+  <section class="section" id="why-us" aria-labelledby="why-us-heading">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">Why Moggstack</span>
+        <h2 id="why-us-heading" style="margin-top: 0.75rem; margin-bottom: 1rem;">
+          Six reasons clients<br/><em>choose us.</em>
+        </h2>
+      </div>
+      <div class="why-grid">
+        {whyChooseUs.map((point, i) => (
+          <div class="why-card" data-reveal data-reveal-delay={String((i % 3) * 100)}>
+            <div class="why-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <h3 class="why-title">{point.title}</h3>
+            <p class="why-desc">{point.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries strip -->
+  <section class="section-sm industries-section" aria-label="Industries we serve">
+    <div class="container">
+      <p class="eyebrow" style="margin-bottom: 1.5rem;" data-reveal>Industries we serve</p>
+      <div class="industries-grid" data-reveal data-reveal-delay="100">
+        {industries.map((ind) => (
+          <div class="industry-chip">
+            <span aria-hidden="true">{ind.icon}</span>
+            {ind.name}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech marquee -->
+  <Marquee />
+
+  <!-- FAQ -->
+  <FAQSection />
+
+  <!-- Final CTA -->
+  <CTASection showMiniForm={true} />
+</BaseLayout>
+
+<style>
+  /* About strip */
+  .about-strip {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .about-strip-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-definition {
+    font-size: var(--text-base);
+    font-style: italic;
+    color: var(--color-ink-secondary);
+    padding: 0.875rem 1rem;
+    border-left: 2px solid var(--color-accent);
+    background: var(--color-accent-subtle);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Why grid */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .why-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--gradient-card);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .why-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .why-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-accent-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+  }
+
+  .why-title {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .why-desc {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  /* Industries */
+  .industries-section {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .industries-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .industry-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    color: var(--color-ink-secondary);
+    background: var(--color-bg);
+    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+    cursor: default;
+  }
+
+  .industry-chip:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .about-strip-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 500px) {
+    .why-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,655 @@
+---
+/**
+ * Navbar.astro — Sticky floating pill navbar.
+ * - Shrinks + gains blur on scroll
+ * - Hides on scroll-down, reappears on scroll-up
+ * - Services mega-menu (keyboard accessible)
+ * - Mobile full-screen animated drawer
+ * - Active-link indicator
+ */
+
+import { site } from '@/data/site';
+import ThemeToggle from '@/components/ThemeToggle.astro';
+
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'About', href: '/about' },
+];
+
+const megaMenuColumns = [
+  {
+    heading: 'Product Engineering',
+    items: [
+      { label: 'Product Development', href: '/services/custom-software-development', icon: 'box' },
+      { label: 'Web Applications', href: '/services/custom-software-development#web-apps', icon: 'globe' },
+      { label: 'Full Stack Development', href: '/services/custom-software-development#fullstack', icon: 'layers' },
+      { label: 'CRM Software', href: '/services/custom-software-development#crm', icon: 'users' },
+      { label: 'Integration & Migration', href: '/services/custom-software-development#integration', icon: 'git-merge' },
+    ],
+  },
+  {
+    heading: 'Mobility',
+    items: [
+      { label: 'Android Development', href: '/services/mobile-app-development#android', icon: 'smartphone' },
+      { label: 'iOS Development', href: '/services/mobile-app-development#ios', icon: 'tablet' },
+      { label: 'React Native / Flutter', href: '/services/mobile-app-development#cross-platform', icon: 'code-2' },
+      { label: 'Native Apps', href: '/services/mobile-app-development#native', icon: 'cpu' },
+      { label: 'Progressive Web Apps', href: '/services/mobile-app-development#pwa', icon: 'zap' },
+    ],
+  },
+  {
+    heading: 'Intelligence & Growth',
+    items: [
+      { label: 'AI Integration', href: '/services/ai-integration', icon: 'brain' },
+      { label: 'Business Automation', href: '/services/business-automation', icon: 'settings' },
+      { label: 'SEO & Marketing', href: '/services/seo-digital-marketing', icon: 'trending-up' },
+      { label: 'Hosting & Maintenance', href: '/services/hosting-maintenance', icon: 'server' },
+      { label: 'Data Analytics', href: '/services/seo-digital-marketing#analytics', icon: 'bar-chart-2' },
+    ],
+  },
+];
+---
+
+<header>
+  <nav
+    class="navbar"
+    id="main-navbar"
+    aria-label="Main navigation"
+  >
+    <!-- Wordmark -->
+    <a href="/" class="navbar-logo" aria-label="Moggstack Technologies — Home">
+      <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Monogram mark -->
+        <rect x="0" y="6" width="20" height="20" rx="5" fill="currentColor" opacity="0.1"/>
+        <text x="3" y="22" font-family="Instrument Serif, serif" font-size="18" font-weight="400" fill="var(--color-accent)">M</text>
+        <!-- Wordmark -->
+        <text x="26" y="22" font-family="Instrument Serif, serif" font-size="17" font-weight="400" fill="currentColor" letter-spacing="-0.02em">Moggstack</text>
+      </svg>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <ul class="navbar-links" role="list">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class={`navbar-link ${currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'active' : ''}`}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Right actions -->
+    <div class="navbar-actions">
+      <ThemeToggle />
+      <a
+        href={`https://wa.me/${site.whatsapp}?text=${site.whatsappMessage}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-ghost btn-sm hide-mobile"
+        aria-label="Contact on WhatsApp"
+        title="Chat on WhatsApp"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+      </a>
+      <a href="/pricing" class="btn btn-primary btn-sm hide-mobile">
+        Start a project
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <!-- Hamburger -->
+      <button
+        class="hamburger hide-desktop"
+        id="hamburger-btn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mega Menu -->
+  <div
+    class="mega-menu"
+    id="mega-menu"
+    role="dialog"
+    aria-label="Services menu"
+    aria-hidden="true"
+  >
+    <div class="mega-menu-inner container">
+      {megaMenuColumns.map((col) => (
+        <div class="mega-menu-col">
+          <p class="mega-menu-heading">{col.heading}</p>
+          <ul role="list">
+            {col.items.map((item) => (
+              <li>
+                <a href={item.href} class="mega-menu-item">
+                  <span class="mega-menu-icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                  </span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Mega menu backdrop -->
+  <div class="mega-menu-backdrop" id="mega-menu-backdrop" aria-hidden="true"></div>
+
+  <!-- Mobile drawer -->
+  <div
+    class="mobile-drawer"
+    id="mobile-drawer"
+    role="dialog"
+    aria-label="Mobile menu"
+    aria-modal="true"
+    aria-hidden="true"
+  >
+    <div class="mobile-drawer-inner">
+      <div class="mobile-drawer-header">
+        <a href="/" class="navbar-logo" data-close-drawer aria-label="Moggstack Technologies — Home">
+          <svg width="130" height="28" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="6" width="20" height="20" rx="5" fill="currentColor" opacity="0.1"/>
+            <text x="3" y="22" font-family="Instrument Serif, serif" font-size="18" fill="var(--color-accent)">M</text>
+            <text x="26" y="22" font-family="Instrument Serif, serif" font-size="17" fill="currentColor" letter-spacing="-0.02em">Moggstack</text>
+          </svg>
+        </a>
+        <button
+          class="drawer-close"
+          id="drawer-close-btn"
+          type="button"
+          aria-label="Close menu"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mobile-nav">
+        <ul role="list">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class={`mobile-nav-link ${currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'active' : ''}`}
+                data-close-drawer
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="mobile-drawer-footer">
+        <a href="/pricing" class="btn btn-primary" style="width: 100%; justify-content: center;" data-close-drawer>
+          Start a project
+        </a>
+        <a
+          href={`https://wa.me/${site.whatsapp.replace(/\D/g, '')}?text=${site.whatsappMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-outline"
+          style="width: 100%; justify-content: center;"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile overlay -->
+  <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
+</header>
+
+<style>
+  /* ── Navbar links ── */
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .navbar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-ink-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+    font-family: var(--font-sans);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .navbar-link:hover,
+  .navbar-link.active {
+    color: var(--color-ink);
+    background: var(--color-surface);
+  }
+
+  .navbar-link.active { font-weight: 600; }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .navbar-logo {
+    color: var(--color-ink);
+    flex-shrink: 0;
+  }
+
+  /* ── Hamburger ── */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 8px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hamburger:hover { background: var(--color-surface); }
+  .hamburger-line {
+    width: 22px;
+    height: 2px;
+    background: var(--color-ink);
+    border-radius: var(--radius-pill);
+    transition: transform var(--transition-base), opacity var(--transition-fast);
+    pointer-events: none;
+  }
+  .hamburger.open .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open .hamburger-line:nth-child(2) { opacity: 0; }
+  .hamburger.open .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── Mega menu ── */
+  .has-mega-menu { position: static; }
+
+  .mega-menu {
+    position: fixed;
+    top: calc(var(--navbar-height) + 1.5rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(-12px);
+    width: calc(100% - 2rem);
+    max-width: 860px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    z-index: var(--z-dropdown);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base), transform var(--transition-base);
+    backdrop-filter: blur(20px);
+  }
+
+  .mega-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .mega-menu-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 0;
+  }
+
+  .mega-menu-heading {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .mega-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--color-ink-secondary);
+    transition: color var(--transition-fast), background var(--transition-fast);
+    text-decoration: none;
+  }
+  .mega-menu-item:hover {
+    color: var(--color-accent);
+    background: var(--color-accent-subtle);
+  }
+  .mega-menu-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    background: var(--color-surface);
+  }
+
+  .mega-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-dropdown) - 1);
+    display: none;
+  }
+  .mega-menu-backdrop.open { display: block; }
+
+  /* ── Mobile drawer ── */
+  .mobile-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    background: var(--color-bg);
+    transform: translateX(100%);
+    transition: transform 0.4s var(--ease-out-expo);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-drawer.open { transform: translateX(0); }
+
+  .mobile-drawer-inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 1.25rem;
+    padding-bottom: 2rem;
+  }
+
+  .mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 1.5rem;
+  }
+
+  .drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    border: none;
+    cursor: pointer;
+    color: var(--color-ink);
+    transition: background var(--transition-fast);
+  }
+  .drawer-close:hover { background: var(--color-surface-2); }
+
+  .mobile-nav { flex: 1; }
+  .mobile-nav ul { list-style: none; }
+  .mobile-nav li { border-bottom: 1px solid var(--color-border); }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.1rem 0;
+    font-size: var(--text-xl);
+    font-family: var(--font-serif);
+    color: var(--color-ink);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: left;
+  }
+  .mobile-nav-link.active { color: var(--color-accent); }
+
+  .services-toggle .chevron {
+    transition: transform var(--transition-base);
+    flex-shrink: 0;
+  }
+  .services-toggle[aria-expanded='true'] .chevron { transform: rotate(180deg); }
+
+  .mobile-services-accordion {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s var(--ease-out-expo);
+  }
+  .mobile-services-accordion.open { max-height: 1000px; }
+
+  .mobile-accordion-col { padding: 0.75rem 0; }
+  .mobile-accordion-heading {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+    margin-bottom: 0.5rem;
+  }
+  .mobile-accordion-item {
+    display: block;
+    padding: 0.5rem 0;
+    font-size: var(--text-base);
+    color: var(--color-ink-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .mobile-accordion-item:hover { color: var(--color-accent); }
+
+  .mobile-drawer-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 2rem;
+  }
+
+  .mobile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-modal) - 1);
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+  }
+  .mobile-overlay.open { opacity: 1; pointer-events: auto; }
+
+  /* Hide nav links and actions on mobile */
+  @media (max-width: 768px) {
+    .navbar-links { display: none; }
+  }
+
+  @media (min-width: 769px) {
+    .hamburger { display: none; }
+    .mobile-drawer { display: none; }
+    .mobile-overlay { display: none; }
+  }
+</style>
+
+<script>
+  function initNavbar() {
+    const navbar = document.getElementById('main-navbar');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const drawerCloseBtn = document.getElementById('drawer-close-btn');
+
+    if (!navbar || !hamburgerBtn || !mobileDrawer || !mobileOverlay) return;
+
+    // ── Scroll behaviour ───────────────────────────────────────────
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
+      const scrolledDown = currentScrollY > lastScrollY && currentScrollY > 80;
+      const scrolledUp = currentScrollY < lastScrollY;
+      const hasScrolled = currentScrollY > 20;
+
+      navbar?.classList.toggle('scrolled', hasScrolled);
+      navbar?.classList.toggle('hidden', scrolledDown && currentScrollY > 200);
+
+      if (scrolledUp) {
+        navbar?.classList.remove('hidden');
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    };
+
+    window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateNavbar();
+
+    // ── Mobile Drawer ──────────────────────────────────────────────
+    function getFocusableElements(container: HTMLElement) {
+      return Array.from(
+        container.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+      );
+    }
+
+    function openMobileMenu() {
+      mobileDrawer?.classList.add('open');
+      mobileOverlay?.classList.add('open');
+      hamburgerBtn?.classList.add('open');
+      hamburgerBtn?.setAttribute('aria-expanded', 'true');
+      mobileDrawer?.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if ((window as any).__lenis) {
+        (window as any).__lenis.stop();
+      }
+      setTimeout(() => {
+        if (!mobileDrawer) return;
+        const focusable = getFocusableElements(mobileDrawer);
+        focusable[0]?.focus();
+      }, 100);
+    }
+
+    function closeMobileMenu() {
+      mobileDrawer?.classList.remove('open');
+      mobileOverlay?.classList.remove('open');
+      hamburgerBtn?.classList.remove('open');
+      hamburgerBtn?.setAttribute('aria-expanded', 'false');
+      mobileDrawer?.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if ((window as any).__lenis) {
+        (window as any).__lenis.start();
+      }
+      hamburgerBtn?.focus();
+    }
+
+    (window as any).closeMobileMenu = closeMobileMenu;
+
+    hamburgerBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = mobileDrawer.classList.contains('open');
+      isOpen ? closeMobileMenu() : openMobileMenu();
+    };
+
+    if (drawerCloseBtn) {
+      drawerCloseBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMobileMenu();
+      };
+    }
+
+    mobileOverlay.onclick = () => {
+      closeMobileMenu();
+    };
+
+    // Close on any link click inside drawer
+    mobileDrawer.querySelectorAll('a').forEach((link) => {
+      link.onclick = () => {
+        closeMobileMenu();
+      };
+    });
+
+    // Keyboard handlers
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+        closeMobileMenu();
+      }
+      if (e.key === 'Tab' && mobileDrawer.classList.contains('open')) {
+        const focusable = getFocusableElements(mobileDrawer);
+        if (focusable.length === 0) return;
+        const firstEl = focusable[0];
+        const lastEl = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === firstEl) {
+          e.preventDefault();
+          lastEl.focus();
+        } else if (!e.shiftKey && document.activeElement === lastEl) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
+    };
+
+    document.removeEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown);
+  }
+
+  // Initial load
+  initNavbar();
+
+  // Re-run after View Transitions navigation
+  document.addEventListener('astro:page-load', initNavbar);
+</script>

@@ -1,0 +1,70 @@
+---
+/**
+ * Marquee.astro — Infinite scrolling tech-stack marquee.
+ */
+import { techStack } from '@/data/industries';
+
+// Duplicate items so the loop is seamless
+const items = [...techStack, ...techStack];
+---
+
+<section class="marquee-section section-sm" aria-label="Technologies we work with">
+  <div class="marquee-label-row container">
+    <p class="eyebrow" data-reveal>Our tech stack</p>
+  </div>
+
+  <div class="marquee-track" role="marquee" aria-roledescription="Scrolling tech logos">
+    <div class="marquee-group" aria-hidden="true">
+      {items.map((tech) => (
+        <span class="marquee-item">
+          <span class="marquee-dot" aria-hidden="true">·</span>
+          {tech}
+        </span>
+      ))}
+    </div>
+    <!-- Duplicate group for seamless loop -->
+    <div class="marquee-group" aria-hidden="true">
+      {items.map((tech) => (
+        <span class="marquee-item">
+          <span class="marquee-dot" aria-hidden="true">·</span>
+          {tech}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- Screen-reader-friendly static list -->
+  <ul class="sr-only" role="list" aria-label="Technologies">
+    {techStack.map((tech) => <li>{tech}</li>)}
+  </ul>
+</section>
+
+<style>
+  .marquee-section {
+    overflow: hidden;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .marquee-label-row {
+    margin-bottom: 1.5rem;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    white-space: nowrap;
+    padding: 0.5rem 0;
+    transition: color var(--transition-fast);
+  }
+
+  .marquee-item:hover { color: var(--color-ink); }
+
+  .marquee-dot {
+    color: var(--color-accent);
+    font-size: var(--text-lg);
+  }
+</style>

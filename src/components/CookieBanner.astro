@@ -1,0 +1,65 @@
+---
+/**
+ * CookieBanner.astro — Lightweight cookie consent banner.
+ * No tracking until consent is given.
+ * Stores preference in localStorage.
+ */
+---
+
+<div
+  class="cookie-banner"
+  id="cookie-banner"
+  role="region"
+  aria-label="Cookie consent"
+  aria-live="polite"
+  style="display: none;"
+>
+  <p style="font-size: var(--text-sm); color: var(--color-ink-secondary); margin-bottom: 0.75rem; line-height: 1.5;">
+    We use cookies to improve your experience and analyse site traffic.
+    <a href="/cookie-policy" class="link-underline" style="color: var(--color-accent);">Cookie Policy</a>
+  </p>
+  <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+    <button id="cookie-accept-all" class="btn btn-primary btn-sm">
+      Accept all
+    </button>
+    <button id="cookie-manage" class="btn btn-outline btn-sm">
+      Manage preferences
+    </button>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = 'moggstack-cookie-consent';
+
+  function initCookieBanner() {
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('cookie-accept-all');
+    const manageBtn = document.getElementById('cookie-manage');
+
+    if (!banner) return;
+
+    const consent = localStorage.getItem(CONSENT_KEY);
+
+    if (!consent) {
+      // Show after a short delay to avoid layout shift on entry
+      setTimeout(() => {
+        banner.style.display = 'block';
+      }, 1500);
+    }
+
+    acceptBtn?.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'all');
+      banner.style.animation = 'fade-in 0.3s reverse forwards';
+      setTimeout(() => { banner.style.display = 'none'; }, 300);
+    });
+
+    manageBtn?.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'essential');
+      banner.style.animation = 'fade-in 0.3s reverse forwards';
+      setTimeout(() => { banner.style.display = 'none'; }, 300);
+    });
+  }
+
+  initCookieBanner();
+  document.addEventListener('astro:page-load', initCookieBanner);
+</script>

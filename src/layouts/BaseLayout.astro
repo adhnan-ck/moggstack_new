@@ -1,0 +1,189 @@
+---
+/**
+ * BaseLayout.astro — Root layout for all pages.
+ * Handles: fonts, global CSS, theme, Lenis, GSAP, View Transitions,
+ * scroll progress bar, cookie banner, WhatsApp FAB, analytics.
+ */
+
+import { ViewTransitions } from 'astro:transitions';
+import SEO from '@/components/SEO.astro';
+import Navbar from '@/components/Navbar.astro';
+import Footer from '@/components/Footer.astro';
+import WhatsAppButton from '@/components/WhatsAppButton.astro';
+import CookieBanner from '@/components/CookieBanner.astro';
+import '@/styles/global.css';
+import { site } from '@/data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    tags?: string[];
+  };
+  noindex?: boolean;
+  jsonLd?: object | object[];
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType,
+  article,
+  noindex,
+  jsonLd,
+  class: className,
+} = Astro.props;
+
+const ga4Id = import.meta.env.PUBLIC_GA4_ID;
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FAF9F6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- SEO -->
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+      article={article}
+      noindex={noindex}
+    />
+
+    <!-- JSON-LD -->
+    {jsonLd && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(Array.isArray(jsonLd) ? jsonLd : [jsonLd])}
+      />
+    )}
+
+    <!-- Analytics (conditional on env vars) -->
+    {ga4Id && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
+        <script define:vars={{ ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', ga4Id);
+        </script>
+      </>
+    )}
+    {plausibleDomain && (
+      <script
+        defer
+        data-domain={plausibleDomain}
+        src="https://plausible.io/js/script.js"
+      />
+    )}
+
+    <!-- View Transitions -->
+    <ViewTransitions />
+
+    <!-- Theme init (no flash of wrong theme) -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('moggstack-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+
+  <body class={className}>
+    <!-- Skip to content -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <Navbar />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <WhatsAppButton />
+    <CookieBanner />
+
+    <!-- Lenis smooth scroll init -->
+    <script>
+      import Lenis from 'lenis';
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // Expose globally for GSAP integration
+      (window as any).__lenis = lenis;
+    </script>
+
+    <!-- Scroll progress bar -->
+    <script>
+      const progressBar = document.getElementById('scroll-progress');
+      function updateProgress() {
+        if (!progressBar) return;
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = `${progress}%`;
+      }
+      window.addEventListener('scroll', updateProgress, { passive: true });
+    </script>
+
+    <!-- Reveal animations (IntersectionObserver fallback for non-GSAP pages) -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+      );
+
+      document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+
+      // Re-run on View Transition navigation
+      document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll('[data-reveal]:not(.revealed)').forEach((el) => observer.observe(el));
+      });
+    </script>
+  </body>
+</html>

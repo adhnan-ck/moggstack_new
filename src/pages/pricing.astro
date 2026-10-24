@@ -1,0 +1,385 @@
+---
+/**
+ * pricing.astro — Pricing page with one-time plans, add-ons, comparison table.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+import FAQSection from '@/components/FAQSection.astro';
+import { pricingPlans, addOns, pricingFaqs } from '@/data/pricing';
+import { site } from '@/data/site';
+---
+
+<BaseLayout
+  title="Pricing — Transparent Plans in INR"
+  description="Transparent, affordable pricing for websites, apps and software. Starting from ₹7,999. No hidden fees."
+>
+  <!-- Page hero -->
+  <section class="page-hero section" aria-labelledby="pricing-heading">
+    <div class="container" style="text-align: center; max-width: 700px; margin-inline: auto;">
+      <div data-reveal>
+        <span class="eyebrow">Pricing</span>
+        <h1 id="pricing-heading" style="margin-top: 0.75rem; margin-bottom: 1rem;">
+          Clear pricing.<br/><em>No surprises.</em>
+        </h1>
+        <p style="font-size: var(--text-lg); color: var(--color-muted); line-height: 1.7;">
+          Transparent, fixed-price starting points for every project type.
+          Final quotes depend on scope — we're always upfront about the total before we start.
+        </p>
+        <p class="pricing-note">
+          All prices in INR · 50% advance / 50% on delivery · Code ownership transfers to you
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans grid -->
+  <section class="section-sm" aria-label="Pricing plans">
+    <div class="container">
+      <div class="plans-grid">
+        {pricingPlans.map((plan, i) => (
+          <div
+            class={`plan-card ${plan.popular ? 'plan-popular' : ''}`}
+            data-reveal
+            data-reveal-delay={String(i * 80)}
+          >
+            {plan.popular && (
+              <div class="plan-badge">
+                <span class="badge badge-popular">Most popular</span>
+              </div>
+            )}
+
+            <div class="plan-header">
+              <h2 class="plan-name">{plan.name}</h2>
+              <div class="plan-price">
+                <span class="plan-price-amount">{plan.price}</span>
+                <span class="plan-price-note">{plan.priceNote}</span>
+              </div>
+              <p class="plan-desc">{plan.description}</p>
+              <p class="plan-delivery">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+                {plan.deliveryTime}
+              </p>
+            </div>
+
+            <ul class="plan-features" role="list">
+              {plan.features.map((feature) => (
+                <li class="plan-feature">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="plan-check" aria-hidden="true">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="/contact"
+              class={`btn plan-cta ${plan.ctaVariant === 'primary' ? 'btn-primary' : plan.ctaVariant === 'secondary' ? 'btn-secondary' : 'btn-outline'}`}
+            >
+              {plan.cta}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Add-ons -->
+  <section class="section" aria-labelledby="addons-heading" style="background: var(--color-surface); border-top: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">Monthly add-ons</span>
+        <h2 id="addons-heading" style="margin-top: 0.75rem; font-size: var(--text-4xl);">
+          Keep growing after launch.
+        </h2>
+        <p style="color: var(--color-muted); max-width: 48ch;">
+          Optional monthly retainers to keep your site fast, secure and improving month over month.
+        </p>
+      </div>
+
+      <div class="addons-grid">
+        {addOns.map((addon, i) => (
+          <div class="addon-card" data-reveal data-reveal-delay={String(i * 100)}>
+            <div class="addon-price-row">
+              <h3 class="addon-name">{addon.name}</h3>
+              <div class="addon-price">
+                <span class="addon-amount">{addon.price}</span>
+                <span class="addon-billing">/{addon.billing}</span>
+              </div>
+            </div>
+            <ul class="plan-features" role="list">
+              {addon.features.map((f) => (
+                <li class="plan-feature">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" class="plan-check" aria-hidden="true">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact" class="btn btn-outline" style="margin-top: auto;">
+              Add to my project
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Payment terms -->
+  <section class="section-sm" aria-label="Payment terms">
+    <div class="container">
+      <div class="terms-box" data-reveal>
+        <h2 style="font-size: var(--text-3xl); margin-bottom: 1rem;">Payment terms</h2>
+        <div class="terms-grid">
+          {[
+            { step: '50%', label: 'Advance', desc: 'Paid before work begins to confirm the project.' },
+            { step: '50%', label: 'On delivery', desc: 'Paid on final delivery and your approval.' },
+          ].map((t) => (
+            <div class="term-item">
+              <span class="term-amount">{t.step}</span>
+              <div>
+                <strong>{t.label}</strong>
+                <p>{t.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p class="terms-note">
+          For projects above ₹2 Lakh, milestone-based payment schedules are available.
+          We accept bank transfer, UPI (GPay, PhonePe, Paytm) and all major credit/debit cards.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing FAQ -->
+  <FAQSection
+    title="Pricing questions, answered."
+    subtitle="Still unsure? These are the questions we hear most often."
+    showJsonLd={false}
+  />
+
+  <CTASection
+    headline="Ready to get a fixed-price quote?"
+    sub="Tell us what you need and we'll send a detailed quote within 24 hours."
+    primaryCta="Request a quote"
+    primaryHref="/contact"
+  />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--gradient-hero);
+    border-bottom: 1px solid var(--color-border);
+    padding-top: calc(var(--navbar-height) + 4rem);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .pricing-note {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    padding: 0.375rem 1rem;
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .plan-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.75rem;
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-bg);
+    position: relative;
+    height: 100%;
+  }
+
+  .plan-popular {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-glow);
+    background: var(--gradient-card);
+  }
+
+  .plan-badge { text-align: center; }
+
+  .plan-header { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .plan-name {
+    font-family: var(--font-sans);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+  }
+
+  .plan-price { display: flex; flex-direction: column; gap: 0.125rem; }
+
+  .plan-price-amount {
+    font-family: var(--font-serif);
+    font-size: var(--text-4xl);
+    color: var(--color-ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .plan-price-note {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .plan-desc {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  .plan-delivery {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+  }
+
+  .plan-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink-secondary);
+    line-height: 1.5;
+  }
+
+  .plan-check { color: var(--color-accent); flex-shrink: 0; margin-top: 2px; }
+
+  .plan-cta {
+    width: 100%;
+    justify-content: center;
+    margin-top: auto;
+  }
+
+  /* Add-ons */
+  .addons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .addon-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    height: 100%;
+  }
+
+  .addon-price-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .addon-name {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .addon-price { text-align: right; flex-shrink: 0; }
+
+  .addon-amount {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    color: var(--color-ink);
+    display: block;
+  }
+
+  .addon-billing {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  /* Terms */
+  .terms-box {
+    padding: 2.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--gradient-card);
+  }
+
+  .terms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .term-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .term-amount {
+    font-family: var(--font-serif);
+    font-size: var(--text-5xl);
+    color: var(--color-accent);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .terms-note {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 1100px) {
+    .plans-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .plans-grid, .addons-grid { grid-template-columns: 1fr; }
+    .terms-grid { grid-template-columns: 1fr; }
+  }
+</style>

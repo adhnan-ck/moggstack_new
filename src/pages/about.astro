@@ -1,0 +1,257 @@
+---
+/**
+ * about.astro — About page
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CTASection from '@/components/CTASection.astro';
+import { whyChooseUs } from '@/data/industries';
+import { site } from '@/data/site';
+---
+
+<BaseLayout
+  title="About Us"
+  description="We are Moggstack Technologies — a full-service software company blending strategy, design and engineering to deliver solutions built to mog."
+>
+  <!-- Page hero -->
+  <section class="page-hero section" aria-labelledby="about-heading">
+    <div class="blob blob-1" style="top: -20%; left: -10%;" aria-hidden="true"></div>
+    <div class="container">
+      <div class="page-hero-inner" data-reveal>
+        <span class="eyebrow">About us</span>
+        <h1 id="about-heading" style="margin-top: 0.75rem; margin-bottom: 1.5rem; max-width: 20ch;">
+          Built to <em>mog</em> — from day one.
+        </h1>
+        <p style="font-size: var(--text-lg); color: var(--color-ink-secondary); max-width: 52ch; line-height: 1.7;">
+          We design and build fast, modern websites, mobile apps and AI-powered platforms that help
+          businesses compete and grow. Our team blends strategy, design and engineering to deliver
+          clean, scalable solutions focused on usability, performance and measurable results.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mog definition -->
+  <section class="section-sm" aria-label="What 'mog' means">
+    <div class="container">
+      <div class="mog-definition" data-reveal>
+        <div class="mog-def-text">
+          <h2 style="font-size: var(--text-4xl); margin-bottom: 1rem;">
+            What does it mean to <em>mog?</em>
+          </h2>
+          <blockquote class="mog-quote">
+            "To mog: to outperform everyone else in the room.
+            That's the standard we build to."
+          </blockquote>
+          <p>
+            Every project we take on is an opportunity to help a business outclass its competition —
+            with faster sites, smarter products, and technology that works harder than anything they've used before.
+            We don't settle for good enough. We build to mog.
+          </p>
+        </div>
+        <div class="mog-accent-box">
+          <div class="mog-stat">
+            <span style="font-family: var(--font-serif); font-size: var(--text-6xl); color: var(--color-accent);">{site.stats[2].value}{site.stats[2].suffix}</span>
+            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.1em;">{site.stats[2].label}</span>
+          </div>
+          <div class="mog-stat">
+            <span style="font-family: var(--font-serif); font-size: var(--text-6xl); color: var(--color-ink);">{site.stats[0].value}{site.stats[0].suffix}</span>
+            <span style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.1em;">{site.stats[0].label}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & values -->
+  <section class="section" aria-labelledby="mission-heading">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">Our approach</span>
+        <h2 id="mission-heading" style="margin-top: 0.75rem; margin-bottom: 1rem; font-size: var(--text-4xl);">
+          How we think about software.
+        </h2>
+      </div>
+      <div class="mission-grid">
+        {[
+          {
+            title: 'Outcomes over output',
+            description: 'We measure success by the business impact of what we build — not the number of features shipped or lines of code written.',
+          },
+          {
+            title: 'Clarity over complexity',
+            description: 'The best software is often the simplest. We resist unnecessary complexity and build systems that are easy to maintain and extend.',
+          },
+          {
+            title: 'Speed without shortcuts',
+            description: 'We move fast — but never at the expense of code quality, security or accessibility. Fast is only good if it lasts.',
+          },
+          {
+            title: 'Partnership, not vending',
+            description: 'We act as a technical co-founder for the duration of your project — invested in your success, not just in closing the contract.',
+          },
+          {
+            title: 'Transparency throughout',
+            description: 'No black boxes. You see every decision, every tradeoff and every deliverable — and we welcome your questions at every stage.',
+          },
+          {
+            title: 'Built to transfer',
+            description: 'Every project ends with documentation, clean code and a handover session so your team can understand, run and extend what we\'ve built.',
+          },
+        ].map((val, i) => (
+          <div class="mission-card" data-reveal data-reveal-delay={String((i % 3) * 100)}>
+            <div class="mission-num">{String(i + 1).padStart(2, '0')}</div>
+            <h3 class="mission-title">{val.title}</h3>
+            <p class="mission-desc">{val.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why choose us -->
+  <section class="section" style="background: var(--color-surface);" aria-labelledby="why-about-heading">
+    <div class="container">
+      <div class="section-header" data-reveal>
+        <span class="eyebrow">Why Moggstack</span>
+        <h2 id="why-about-heading" style="margin-top: 0.75rem; font-size: var(--text-4xl);">Six reasons to work with us.</h2>
+      </div>
+      <div class="why-grid">
+        {whyChooseUs.map((point, i) => (
+          <div class="why-card" data-reveal data-reveal-delay={String((i % 3) * 100)}>
+            <h3 class="why-title">{point.title}</h3>
+            <p class="why-desc">{point.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    headline="Want to work with our team?"
+    sub="Tell us what you're building. We'll tell you honestly if and how we can help."
+    primaryCta="Get in touch"
+    primaryHref="/contact"
+  />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--gradient-hero);
+    border-bottom: 1px solid var(--color-border);
+    padding-top: calc(var(--navbar-height) + 4rem);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mog-definition {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 3rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--gradient-card);
+  }
+
+  .mog-quote {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-style: italic;
+    color: var(--color-accent);
+    border-left: 2px solid var(--color-accent);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    line-height: 1.4;
+  }
+
+  .mog-accent-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    background: var(--color-accent-subtle);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .mog-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .mission-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--gradient-card);
+  }
+
+  .mission-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .mission-title {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0.625rem;
+  }
+
+  .mission-desc {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    line-height: 1.65;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .why-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+  }
+
+  .why-title {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .why-desc {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1024px) {
+    .mog-definition { grid-template-columns: 1fr; }
+    .mission-grid, .why-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .mission-grid, .why-grid { grid-template-columns: 1fr; }
+  }
+</style>
