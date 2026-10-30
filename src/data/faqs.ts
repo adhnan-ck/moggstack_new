@@ -7,7 +7,7 @@ export const faqs: FAQ[] = [
   {
     question: 'How much does a website cost in India?',
     answer:
-      'Our websites start from ₹7,999 for a standard 5-page business site and go up based on features, pages and complexity. E-commerce stores and web applications are scoped separately. We provide a fixed-price quote before starting — no hidden fees.',
+      'Our websites start from ₹6,999 for a standard 5-page business site and go up based on features, pages and complexity. E-commerce stores and web applications are scoped separately. We provide a fixed-price quote before starting — no hidden fees.',
   },
   {
     question: 'How long does it take to build a website or app?',
@@ -22,17 +22,17 @@ export const faqs: FAQ[] = [
   {
     question: "Do you provide hosting? What's included?",
     answer:
-      'Yes. Our Standard and Growth plans include 1 year of managed hosting and SSL. We use AWS, Vercel and Cloudflare for reliable, fast infrastructure. After year one, hosting continues at ₹499/month with our Hosting & Care plan.',
+      'Yes. Our Standard and Growth plans include 1 year of managed hosting and SSL. We use AWS, Vercel and Cloudflare for reliable, fast infrastructure. After year one, hosting continues at ₹149/month with our Hosting & Care plan.',
   },
   {
     question: 'How many revisions do I get?',
     answer:
-      'Standard plans include 2 revision rounds; Growth plans include 3; Scale and Custom are agreed per project. Revisions are defined upfront so there\'s no confusion mid-project.',
+      'You get Unlimited Revisions on all Plans because we will work on your product until you get 100% satisfied.',
   },
   {
     question: 'What does ongoing maintenance and support include?',
     answer:
-      'Our Hosting & Care plan at ₹499/month covers hosting, SSL, daily backups, uptime monitoring and minor content edits. Growth and Scale plans include 30 and 60 days of post-launch support respectively. Longer-term support retainers are available.',
+      'Our Hosting & Care plan at ₹149/month covers hosting, SSL, daily backups, uptime monitoring and minor content edits. Growth and Scale plans include 30 and 60 days of post-launch support respectively. Longer-term support retainers are available.',
   },
   {
     question: 'Can you integrate AI features into my existing product?',
@@ -42,6 +42,6 @@ export const faqs: FAQ[] = [
   {
     question: 'What are your payment terms?',
     answer:
-      '50% advance payment to begin, 50% on delivery and your approval. For larger projects (₹2L+), we offer milestone-based payment schedules. We accept bank transfer, UPI and all major cards.',
+      '10% advance payment to begin, 90% on delivery and your approval. For larger projects (₹2L+), we offer milestone-based payment schedules. We accept bank transfer, UPI and all major cards.',
   },
 ];

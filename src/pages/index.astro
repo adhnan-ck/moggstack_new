@@ -6,13 +6,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Hero from '@/components/Hero.astro';
 import StatsStrip from '@/components/StatsStrip.astro';
 import ServicesGrid from '@/components/ServicesGrid.astro';
-import SolutionsTeaser from '@/components/SolutionsTeaser.astro';
 import ProcessSection from '@/components/ProcessSection.astro';
 import Marquee from '@/components/Marquee.astro';
+import TestimonialsSection from '@/components/TestimonialsSection.astro';
 import FAQSection from '@/components/FAQSection.astro';
 import CTASection from '@/components/CTASection.astro';
+import WorkShowcase from '@/components/WorkShowcase.astro';
 import { site } from '@/data/site';
-import { whyChooseUs, industries } from '@/data/industries';
+import { whyChooseUs } from '@/data/industries';
 
 const orgJsonLd = {
   '@context': 'https://schema.org',
@@ -105,9 +106,6 @@ const localBusinessJsonLd = {
   <!-- Services -->
   <ServicesGrid />
 
-  <!-- Solutions teaser -->
-  <SolutionsTeaser />
-
   <!-- Process -->
   <ProcessSection />
 
@@ -136,23 +134,14 @@ const localBusinessJsonLd = {
     </div>
   </section>
 
-  <!-- Industries strip -->
-  <section class="section-sm industries-section" aria-label="Industries we serve">
-    <div class="container">
-      <p class="eyebrow" style="margin-bottom: 1.5rem;" data-reveal>Industries we serve</p>
-      <div class="industries-grid" data-reveal data-reveal-delay="100">
-        {industries.map((ind) => (
-          <div class="industry-chip">
-            <span aria-hidden="true">{ind.icon}</span>
-            {ind.name}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- Work / Portfolio showcase -->
+  <WorkShowcase />
 
   <!-- Tech marquee -->
   <Marquee />
+
+  <!-- Client Testimonials -->
+  <TestimonialsSection />
 
   <!-- FAQ -->
   <FAQSection />
@@ -232,39 +221,6 @@ const localBusinessJsonLd = {
     font-size: var(--text-sm);
     color: var(--color-muted);
     line-height: 1.6;
-  }
-
-  /* Industries */
-  .industries-section {
-    background: var(--color-surface);
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .industries-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.625rem;
-  }
-
-  .industry-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-pill);
-    font-size: var(--text-sm);
-    color: var(--color-ink-secondary);
-    background: var(--color-bg);
-    transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
-    cursor: default;
-  }
-
-  .industry-chip:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    background: var(--color-accent-subtle);
   }
 
   /* Responsive */

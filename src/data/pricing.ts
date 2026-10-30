@@ -22,7 +22,7 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: 'standard',
     name: 'Standard',
-    price: '₹7,999',
+    price: '₹6,999',
     priceNote: 'starting from',
     description: 'Perfect for small businesses, service providers and local shops needing a modern online presence.',
     deliveryTime: '5–7 business days',
@@ -34,14 +34,14 @@ export const pricingPlans: PricingPlan[] = [
       'Contact form + WhatsApp integration',
       'Basic on-page SEO setup',
       '1 year free hosting + SSL certificate',
-      '2 rounds of revisions',
+      'unlimited rounds of revisions',
       'Mobile-first, cross-browser tested',
     ],
   },
   {
     id: 'growth',
     name: 'Growth',
-    price: '₹24,999',
+    price: '₹14,999',
     priceNote: 'starting from',
     popular: true,
     description: 'For growing businesses that need a full-featured website with content management, SEO and automation.',
@@ -57,13 +57,13 @@ export const pricingPlans: PricingPlan[] = [
       '1 AI chatbot or automation integration',
       '1 year managed hosting included',
       '30 days post-launch support',
-      '3 rounds of revisions',
+      'unlimited rounds of revisions',
     ],
   },
   {
     id: 'scale',
     name: 'Scale',
-    price: '₹49,999',
+    price: '₹24,999',
     priceNote: 'starting from',
     description: 'For product companies, e-commerce stores and businesses that need a full-stack web application.',
     deliveryTime: '3–6 weeks',
@@ -77,7 +77,8 @@ export const pricingPlans: PricingPlan[] = [
       'AI features (chatbot / RAG / automation)',
       'Business automation workflows',
       'Security hardening + OWASP audit',
-      '60 days post-launch support',
+      '2 year post-launch support',
+      'unlimited rounds of revisions',
       'Full source code & IP ownership transfer',
     ],
   },
@@ -98,6 +99,7 @@ export const pricingPlans: PricingPlan[] = [
       'Fixed-price or milestone-based billing',
       'Dedicated project manager',
       'Full technical documentation',
+      'unlimited rounds of revisions',
       'Flexible support retainer options',
     ],
   },
@@ -106,19 +108,19 @@ export const pricingPlans: PricingPlan[] = [
 export const addOns: AddOn[] = [
   {
     name: 'Hosting & Care',
-    price: '₹499',
+    price: '₹149',
     billing: 'per month',
     features: [
       'Managed cloud hosting',
       'SSL certificate & auto-renewal',
       'Daily automated backups',
       'Uptime monitoring (24/7)',
-      'Minor content edits (up to 2/month)',
+      'Minor content edits',
     ],
   },
   {
     name: 'SEO Growth',
-    price: '₹4,999',
+    price: '₹1,499',
     billing: 'per month',
     features: [
       'Monthly keyword research & tracking',
@@ -145,7 +147,7 @@ export const addOns: AddOn[] = [
 export const pricingFaqs = [
   {
     question: 'How do payment terms work?',
-    answer: '50% advance payment is required to start work. The remaining 50% is due upon delivery and your approval. For larger projects, milestone-based payment schedules are available.',
+    answer: '10% advance payment is required to start work. The remaining 90% is due upon delivery and your approval. For larger projects, milestone-based payment schedules are available.',
   },
   {
     question: 'Can I upgrade my plan later?',

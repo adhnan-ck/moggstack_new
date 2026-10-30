@@ -161,7 +161,7 @@ const faqJsonLd = {
 <script>
   function initFAQ() {
     document.querySelectorAll<HTMLButtonElement>('.faq-question').forEach((btn) => {
-      btn.addEventListener('click', () => {
+      btn.onclick = () => {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
         const answerId = btn.getAttribute('aria-controls')!;
         const answer = document.getElementById(answerId)!;
@@ -191,10 +191,9 @@ const faqJsonLd = {
             answer.style.maxHeight = answer.scrollHeight + 'px';
           });
         }
-      });
+      };
     });
   }
 
-  initFAQ();
   document.addEventListener('astro:page-load', initFAQ);
 </script>

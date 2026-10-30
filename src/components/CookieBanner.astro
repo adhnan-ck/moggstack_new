@@ -47,19 +47,22 @@
       }, 1500);
     }
 
-    acceptBtn?.addEventListener('click', () => {
-      localStorage.setItem(CONSENT_KEY, 'all');
-      banner.style.animation = 'fade-in 0.3s reverse forwards';
-      setTimeout(() => { banner.style.display = 'none'; }, 300);
-    });
+    if (acceptBtn) {
+      acceptBtn.onclick = () => {
+        localStorage.setItem(CONSENT_KEY, 'all');
+        banner.style.animation = 'fade-in 0.3s reverse forwards';
+        setTimeout(() => { banner.style.display = 'none'; }, 300);
+      };
+    }
 
-    manageBtn?.addEventListener('click', () => {
-      localStorage.setItem(CONSENT_KEY, 'essential');
-      banner.style.animation = 'fade-in 0.3s reverse forwards';
-      setTimeout(() => { banner.style.display = 'none'; }, 300);
-    });
+    if (manageBtn) {
+      manageBtn.onclick = () => {
+        localStorage.setItem(CONSENT_KEY, 'essential');
+        banner.style.animation = 'fade-in 0.3s reverse forwards';
+        setTimeout(() => { banner.style.display = 'none'; }, 300);
+      };
+    }
   }
 
-  initCookieBanner();
   document.addEventListener('astro:page-load', initCookieBanner);
 </script>

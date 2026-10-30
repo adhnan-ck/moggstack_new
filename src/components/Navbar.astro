@@ -647,9 +647,6 @@ const megaMenuColumns = [
     document.addEventListener('keydown', onKeyDown);
   }
 
-  // Initial load
-  initNavbar();
-
-  // Re-run after View Transitions navigation
+  // Runs on initial page load and after every View Transition
   document.addEventListener('astro:page-load', initNavbar);
 </script>

@@ -1,22 +1,22 @@
 export const industries = [
-  { name: 'Healthcare & Clinics', icon: '🏥' },
-  { name: 'Education', icon: '🎓' },
-  { name: 'Retail & E-commerce', icon: '🛍️' },
-  { name: 'Restaurants & Hospitality', icon: '🍽️' },
-  { name: 'Logistics & Transport', icon: '🚚' },
-  { name: 'Finance & Fintech', icon: '💳' },
-  { name: 'Travel', icon: '✈️' },
-  { name: 'Real Estate', icon: '🏢' },
-  { name: 'Media & Photography', icon: '📸' },
-  { name: 'Interiors', icon: '🛋️' },
-  { name: 'Agro & Manufacturing', icon: '🌾' },
-  { name: 'Startups', icon: '🚀' },
+  // { name: 'Healthcare & Clinics', icon: '🏥' },
+  // { name: 'Education', icon: '🎓' },
+  // { name: 'Retail & E-commerce', icon: '🛍️' },
+  // { name: 'Restaurants & Hospitality', icon: '🍽️' },
+  // { name: 'Logistics & Transport', icon: '🚚' },
+  // { name: 'Finance & Fintech', icon: '💳' },
+  // { name: 'Travel', icon: '✈️' },
+  // { name: 'Real Estate', icon: '🏢' },
+  // { name: 'Media & Photography', icon: '📸' },
+  // { name: 'Interiors', icon: '🛋️' },
+  // { name: 'Agro & Manufacturing', icon: '🌾' },
+  // { name: 'Startups', icon: '🚀' },
 ];
 
 export const techStack = [
-  'Astro', 'Next.js', 'React', 'Node.js', 'TypeScript', 'Python',
+  'Astro', 'Java', 'React', 'Node.js', 'TypeScript', 'Python',
   'Flutter', 'React Native', 'PostgreSQL', 'MongoDB', 'OpenAI', 'Claude',
-  'Tailwind CSS', 'AWS', 'Docker', 'WordPress', 'Vercel', 'Cloudflare',
+  'Tailwind CSS', 'AWS', 'Docker', 'Spring Boot', 'Netlify', 'Cloudflare',
 ];
 
 export const whyChooseUs = [

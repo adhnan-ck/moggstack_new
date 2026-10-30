@@ -12,13 +12,13 @@ export const site = {
   url: 'https://moggstack.com', // TODO: update to live domain
 
   // ── Contact ──────────────────────────────────────────────────────────────
-  email: 'hello@moggstack.com',
-  phone: '+91 99953 38177',
-  phoneRaw: '+919995338177',
-  whatsapp: '919995338177',
+  email: 'adhnanck07@gmail.com',
+  phone: '+91 72040 59727',
+  phoneRaw: '+917204059727',
+  whatsapp: '917204059727',
   whatsappMessage: 'Hi%20Moggstack%2C%20I%27d%20like%20to%20discuss%20a%20project.',
   address: '',
-  workingHours: 'Mon – Fri, 9:00 AM – 6:00 PM IST',
+  // workingHours: 'Mon – Fri, 9:00 AM – 6:00 PM IST',
 
   // ── Social ────────────────────────────────────────────────────────────────
   socials: {
@@ -31,10 +31,10 @@ export const site = {
   // ── Stats (shown in stats strip) ─────────────────────────────────────────
   // TODO: update with real numbers before launch
   stats: [
-    { value: 50, suffix: '+', label: 'Projects Delivered' },
+    { value: 30, suffix: '+', label: 'Projects Delivered' },
     { value: 3, suffix: '+', label: 'Years of Experience' },
     { value: 98, suffix: '%', label: 'Client Satisfaction' },
-    { value: 2, suffix: 'h', label: 'Avg. Response Time' },
+    { value: 1, suffix: 'h', label: 'Avg. Response Time' },
   ],
 
   // ── SEO defaults ─────────────────────────────────────────────────────────

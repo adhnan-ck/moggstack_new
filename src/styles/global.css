@@ -58,8 +58,8 @@
   --text-7xl: clamp(3.5rem, 9vw + 0.3rem, 6.5rem);
 
   /* ── Spacing ── */
-  --space-section: clamp(4rem, 8vw, 8rem);
-  --space-section-sm: clamp(2.5rem, 5vw, 5rem);
+  --space-section: clamp(2.5rem, 5vw, 5rem);
+  --space-section-sm: clamp(1.5rem, 3vw, 3rem);
 
   /* ── Radii ── */
   --radius-sm: 8px;

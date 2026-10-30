@@ -121,6 +121,5 @@ import { site } from '@/data/site';
     document.querySelectorAll('.stat-count').forEach((el) => observer.observe(el));
   }
 
-  initCounters();
   document.addEventListener('astro:page-load', initCounters);
 </script>
