@@ -59,15 +59,10 @@ const megaMenuColumns = [
     id="main-navbar"
     aria-label="Main navigation"
   >
-    <!-- Wordmark -->
+    <!-- Logo -->
     <a href="/" class="navbar-logo" aria-label="Moggstack Technologies — Home">
-      <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Monogram mark -->
-        <rect x="0" y="6" width="20" height="20" rx="5" fill="currentColor" opacity="0.1"/>
-        <text x="3" y="22" font-family="Instrument Serif, serif" font-size="18" font-weight="400" fill="var(--color-accent)">M</text>
-        <!-- Wordmark -->
-        <text x="26" y="22" font-family="Instrument Serif, serif" font-size="17" font-weight="400" fill="currentColor" letter-spacing="-0.02em">Moggstack</text>
-      </svg>
+      <img src="/logo-light.png" alt="Moggstack Technologies" class="navbar-logo-img logo-theme-light" />
+      <img src="/logo-dark.png" alt="Moggstack Technologies" class="navbar-logo-img logo-theme-dark" />
     </a>
 
     <!-- Desktop Nav Links -->
@@ -167,11 +162,8 @@ const megaMenuColumns = [
     <div class="mobile-drawer-inner">
       <div class="mobile-drawer-header">
         <a href="/" class="navbar-logo" data-close-drawer aria-label="Moggstack Technologies — Home">
-          <svg width="130" height="28" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0" y="6" width="20" height="20" rx="5" fill="currentColor" opacity="0.1"/>
-            <text x="3" y="22" font-family="Instrument Serif, serif" font-size="18" fill="var(--color-accent)">M</text>
-            <text x="26" y="22" font-family="Instrument Serif, serif" font-size="17" fill="currentColor" letter-spacing="-0.02em">Moggstack</text>
-          </svg>
+          <img src="/logo-light.png" alt="Moggstack Technologies" class="navbar-logo-img logo-theme-light" />
+          <img src="/logo-dark.png" alt="Moggstack Technologies" class="navbar-logo-img logo-theme-dark" />
         </a>
         <button
           class="drawer-close"
@@ -269,6 +261,14 @@ const megaMenuColumns = [
   .navbar-logo {
     color: var(--color-ink);
     flex-shrink: 0;
+    line-height: 0;
+  }
+
+  .navbar-logo-img {
+    height: 38px;
+    width: auto;
+    display: block;
+    object-fit: contain;
   }
 
   /* ── Hamburger ── */
@@ -505,6 +505,7 @@ const megaMenuColumns = [
   /* Hide nav links and actions on mobile */
   @media (max-width: 768px) {
     .navbar-links { display: none; }
+    .navbar-logo-img { height: 28px; }
   }
 
   @media (min-width: 769px) {
