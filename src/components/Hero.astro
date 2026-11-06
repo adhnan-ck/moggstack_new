@@ -22,11 +22,14 @@ import { site } from "@/data/site";
         >
       </div>
 
-      <h1 class="hero-headline" aria-label="Solutions built to mog.">
-        <span class="hero-line" data-hero-line>Solutions</span>
-        <span class="hero-line" data-hero-line>built to</span>
-        <span class="hero-line" data-hero-line>
-          <em class="hero-italic">mog.</em>
+      <h1 class="hero-headline">
+        <span class="hero-brand-kicker">Moggstack Technologies</span>
+        <span class="hero-headline-lines">
+          <span class="hero-line" data-hero-line>Solutions</span>
+          <span class="hero-line" data-hero-line>built to</span>
+          <span class="hero-line" data-hero-line>
+            <em class="hero-italic">mog.</em>
+          </span>
         </span>
       </h1>
 
@@ -249,6 +252,22 @@ import { site } from "@/data/site";
     margin-bottom: 1.5rem;
   }
 
+  .hero-brand-kicker {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .hero-headline-lines {
+    display: block;
+  }
+
   .hero-line {
     display: block;
     overflow: hidden;
@@ -262,16 +281,16 @@ import { site } from "@/data/site";
     animation: hero-line-reveal 0.8s var(--ease-out-expo) forwards;
   }
 
-  .hero-line:nth-child(1) > *,
-  .hero-line:nth-child(1) {
+  .hero-headline-lines .hero-line:nth-child(1) > *,
+  .hero-headline-lines .hero-line:nth-child(1) {
     animation-delay: 0.1s;
   }
-  .hero-line:nth-child(2) > *,
-  .hero-line:nth-child(2) {
+  .hero-headline-lines .hero-line:nth-child(2) > *,
+  .hero-headline-lines .hero-line:nth-child(2) {
     animation-delay: 0.2s;
   }
-  .hero-line:nth-child(3) > *,
-  .hero-line:nth-child(3) {
+  .hero-headline-lines .hero-line:nth-child(3) > *,
+  .hero-headline-lines .hero-line:nth-child(3) {
     animation-delay: 0.3s;
   }
 
@@ -507,7 +526,7 @@ import { site } from "@/data/site";
       color: "#28C840",
     },
     {
-      cmd: "🚀 Launched at moggstack.com",
+      cmd: "🚀 Launched at moggstack.in",
       delay: 4600,
       output: true,
       color: "#FEBC2E",

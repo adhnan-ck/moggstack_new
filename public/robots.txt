@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow API or private paths if any
+Disallow: /api/
+
+# Sitemap index
+Sitemap: https://moggstack.in/sitemap-index.xml
+

@@ -2,69 +2,33 @@
 /**
  * index.astro — Homepage
  */
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Hero from '@/components/Hero.astro';
-import StatsStrip from '@/components/StatsStrip.astro';
-import ServicesGrid from '@/components/ServicesGrid.astro';
-import ProcessSection from '@/components/ProcessSection.astro';
-import Marquee from '@/components/Marquee.astro';
-import TestimonialsSection from '@/components/TestimonialsSection.astro';
-import FAQSection from '@/components/FAQSection.astro';
-import CTASection from '@/components/CTASection.astro';
-import WorkShowcase from '@/components/WorkShowcase.astro';
-import { site } from '@/data/site';
-import { whyChooseUs } from '@/data/industries';
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import StatsStrip from "@/components/StatsStrip.astro";
+import ServicesGrid from "@/components/ServicesGrid.astro";
+import ProcessSection from "@/components/ProcessSection.astro";
+import Marquee from "@/components/Marquee.astro";
+import TestimonialsSection from "@/components/TestimonialsSection.astro";
+import FAQSection from "@/components/FAQSection.astro";
+import CTASection from "@/components/CTASection.astro";
+import WorkShowcase from "@/components/WorkShowcase.astro";
+import { site } from "@/data/site";
+import { whyChooseUs } from "@/data/industries";
+import {
+  getOrganizationSchema,
+  getWebsiteSchema,
+  getSoftwareApplicationSchema,
+} from "@/data/seoSchemas";
 
-const orgJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: site.name,
-  url: site.url,
-  logo: `${site.url}/favicon.svg`,
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: site.phoneRaw,
-    contactType: 'customer service',
-    areaServed: ['IN', 'GB', 'US', 'AE'],
-    availableLanguage: 'English',
-  },
-  sameAs: Object.values(site.socials),
-};
-
-const webSiteJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: site.name,
-  url: site.url,
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${site.url}/blog?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
-};
-
-const localBusinessJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: site.name,
-  description: site.description,
-  url: site.url,
-  telephone: site.phoneRaw,
-  email: site.email,
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'IN',
-  },
-  priceRange: '₹₹',
-  currenciesAccepted: 'INR',
-  openingHours: 'Mo-Fr 09:00-18:00',
-};
+const orgJsonLd = getOrganizationSchema();
+const webSiteJsonLd = getWebsiteSchema();
+const softwareAppJsonLd = getSoftwareApplicationSchema();
 ---
 
 <BaseLayout
-  title="Software Solutions Company in India"
-  description={site.description}
-  jsonLd={[orgJsonLd, webSiteJsonLd, localBusinessJsonLd]}
+  title="Moggstack Technologies — Software Solutions & Digital Development Agency"
+  description="Premier software solutions and digital agency. We build high-performance websites, iOS & Android mobile apps, custom CRM/ERP systems, AI integrations, and automated business workflows."
+  jsonLd={[orgJsonLd, webSiteJsonLd, softwareAppJsonLd]}
 >
   <!-- Hero -->
   <Hero />
@@ -78,24 +42,35 @@ const localBusinessJsonLd = {
       <div class="about-strip-inner" data-reveal>
         <div class="about-strip-text">
           <span class="eyebrow">Who we are</span>
-          <h2 style="margin-top: 0.75rem; font-size: var(--text-4xl); max-width: 22ch;">
+          <h2
+            style="margin-top: 0.75rem; font-size: var(--text-4xl); max-width: 22ch;"
+          >
             Strategy, design and engineering in <em>one team.</em>
           </h2>
         </div>
         <div class="about-strip-body">
           <p class="about-definition">
-            <strong>To mog</strong> — to outperform everyone else in the room.
-            That's the standard we build to.
+            <strong>To mog</strong> — to outperform everyone else in the room. That's
+            the standard we build to.
           </p>
           <p>
-            We design and build fast, modern websites and mobile apps that help businesses grow.
-            Our team blends strategy, design and engineering to deliver clean, scalable solutions
-            focused on usability, performance and measurable results.
+            We design and build fast, modern websites and mobile apps that help
+            businesses grow. Our team blends strategy, design and engineering to
+            deliver clean, scalable solutions focused on usability, performance
+            and measurable results.
           </p>
           <a href="/about" class="btn btn-outline" style="margin-top: 1rem;">
             About our team
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
           </a>
         </div>
@@ -114,22 +89,39 @@ const localBusinessJsonLd = {
     <div class="container">
       <div class="section-header" data-reveal>
         <span class="eyebrow">Why Moggstack</span>
-        <h2 id="why-us-heading" style="margin-top: 0.75rem; margin-bottom: 1rem;">
-          Six reasons clients<br/><em>choose us.</em>
+        <h2
+          id="why-us-heading"
+          style="margin-top: 0.75rem; margin-bottom: 1rem;"
+        >
+          Six reasons clients<br /><em>choose us.</em>
         </h2>
       </div>
       <div class="why-grid">
-        {whyChooseUs.map((point, i) => (
-          <div class="why-card" data-reveal data-reveal-delay={String((i % 3) * 100)}>
-            <div class="why-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
+        {
+          whyChooseUs.map((point, i) => (
+            <div
+              class="why-card"
+              data-reveal
+              data-reveal-delay={String((i % 3) * 100)}
+            >
+              <div class="why-icon">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+              <h3 class="why-title">{point.title}</h3>
+              <p class="why-desc">{point.description}</p>
             </div>
-            <h3 class="why-title">{point.title}</h3>
-            <p class="why-desc">{point.description}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -188,7 +180,9 @@ const localBusinessJsonLd = {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background: var(--gradient-card);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base);
   }
 
   .why-card:hover {
@@ -225,11 +219,18 @@ const localBusinessJsonLd = {
 
   /* Responsive */
   @media (max-width: 768px) {
-    .about-strip-inner { grid-template-columns: 1fr; gap: 2rem; }
-    .why-grid { grid-template-columns: 1fr 1fr; }
+    .about-strip-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .why-grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   @media (max-width: 500px) {
-    .why-grid { grid-template-columns: 1fr; }
+    .why-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

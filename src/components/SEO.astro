@@ -1,12 +1,12 @@
 ---
 /**
  * SEO.astro — Reusable SEO head component
- * Drop into <head> of any page for complete meta coverage.
+ * Complete Open Graph, Twitter Cards, canonical tags, and search engine directives.
  */
 
 import { site } from '@/data/site';
 
-interface Props {
+export interface Props {
   title?: string;
   description?: string;
   canonical?: string;
@@ -31,35 +31,56 @@ const {
   noindex = false,
 } = Astro.props;
 
-const pageTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`;
-const canonicalURL = canonical ? new URL(canonical, site.url) : new URL(Astro.url.pathname, site.url);
-const ogImageURL = new URL(ogImage, site.url);
+// Avoid duplicate brand suffix if already present in title
+const pageTitle = title
+  ? title.toLowerCase().includes(site.name.toLowerCase()) || title.toLowerCase().includes(site.shortName.toLowerCase())
+    ? title
+    : `${title} | ${site.name}`
+  : `${site.name} — Software Solutions & Digital Development Agency`;
+
+// Absolute canonical and OG image URLs
+const canonicalURL = canonical
+  ? new URL(canonical, site.url).href
+  : new URL(Astro.url.pathname, site.url).href;
+
+const ogImageURL = new URL(ogImage || site.ogImage, site.url).href;
+const robotsContent = noindex
+  ? 'noindex, nofollow'
+  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 ---
 
-<!-- Primary SEO -->
+<!-- Primary SEO Tags -->
 <title>{pageTitle}</title>
+<meta name="title" content={pageTitle} />
 <meta name="description" content={description} />
+<meta name="author" content={site.name} />
+<meta name="application-name" content={site.name} />
+<meta name="robots" content={robotsContent} />
+<meta name="googlebot" content={robotsContent} />
 <link rel="canonical" href={canonicalURL} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<!-- Open Graph -->
+<!-- Open Graph / Facebook -->
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageURL} />
+<meta property="og:image:secure_url" content={ogImageURL} />
 <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
 <meta property="og:site_name" content={site.name} />
 <meta property="og:locale" content="en_IN" />
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
 <meta name="twitter:site" content={site.twitterHandle} />
+<meta name="twitter:creator" content={site.twitterHandle} />
 <meta name="twitter:title" content={pageTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageURL} />
+<meta name="twitter:image:alt" content={`${site.name} — ${site.tagline}`} />
 
-<!-- Article-specific meta -->
+<!-- Article Metadata (if applicable) -->
 {article && (
   <>
     {article.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}

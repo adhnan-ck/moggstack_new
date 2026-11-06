@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://moggstack.com', // TODO: update to live domain
+  site: 'https://moggstack.in',
   output: 'static',
   integrations: [
     mdx(),

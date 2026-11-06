@@ -8,8 +8,8 @@ export const site = {
   shortName: 'Moggstack',
   tagline: 'Solutions built to mog.',
   description:
-    'We build platforms that move businesses forward: custom websites, ERP/CRM solutions, mobile apps, AI integrations and SEO, delivered fast and built to scale.',
-  url: 'https://moggstack.com', // TODO: update to live domain
+    'Software solutions and digital development company specializing in modern websites, mobile apps (iOS & Android), custom software (CRM & ERP), AI integration & chatbots, business process automation, SEO, and cloud hosting.',
+  url: 'https://moggstack.in',
 
   // ── Contact ──────────────────────────────────────────────────────────────
   email: 'adhnanck07@gmail.com',
@@ -22,10 +22,11 @@ export const site = {
 
   // ── Social ────────────────────────────────────────────────────────────────
   socials: {
-    linkedin: 'https://linkedin.com/company/moggstack', // TODO: replace
-    instagram: 'https://instagram.com/moggstack', // TODO: replace
-    twitter: 'https://x.com/moggstack', // TODO: replace
-    youtube: 'https://youtube.com/@moggstack', // TODO: replace
+    linkedin: 'https://linkedin.com/company/moggstack',
+    github: 'https://github.com/moggstack',
+    instagram: 'https://instagram.com/moggstack',
+    twitter: 'https://x.com/moggstack',
+    youtube: 'https://youtube.com/@moggstack',
   },
 
   // ── Stats (shown in stats strip) ─────────────────────────────────────────
